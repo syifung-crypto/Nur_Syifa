@@ -1,67 +1,97 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kalkulator Sistem Bilangan</title>
-<style>
-  body { font-family: Arial, sans-serif; background: #fff; max-width: 420px; margin: 30px auto; padding: 0 20px; color: #222; }
-  label { display: block; margin: 18px 0 8px; font-size: 16px; }
-  input, select { width: 100%; padding: 14px; font-size: 18px; border: 1px solid #eee; border-radius: 8px; box-sizing: border-box; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
-  button { width: 100%; margin-top: 20px; padding: 14px; font-size: 20px; background: #1a6ff0; color: #fff; border: 0; border-radius: 8px; cursor: pointer; }
-  button:hover { background: #135ad0; }
-  #error { color: red; margin-top: 10px; }
-  #boxHasil { margin-top: 24px; padding: 28px 16px; background: #d4e9dc; border-radius: 8px; text-align: center; }
-  #boxHasil p { margin: 0 0 12px; font-size: 18px; color: #444; }
-  #hasil { font-size: 40px; font-weight: bold; word-break: break-all; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Sistem Bilangan</title>
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 </head>
-<body>
-  <label for="angka">Masukkan Bilangan</label>
-  <input type="text" id="angka" placeholder="contoh: 16">
+<body class="bg-light">
 
-  <label for="dari">Sistem Bilangan Input</label>
-  <select id="dari">
-    <option value="2">Biner (Basis 2)</option>
-    <option value="10" selected>Desimal (Basis 10)</option>
-    <option value="8">Oktal (Basis 8)</option>
-    <option value="16">Hexadesimal (Basis 16)</option>
-  </select>
+    <div class="container mt-5">
+        <div class="card shadow mx-auto" style="max-width: 500px;">
+            <div class="card-body p-4">
 
-  <button onclick="konversi()">Konversi</button>
-  <div id="error"></div>
+                <h3 class="text-center mb-4">
+                    Kalkulator Sistem Bilangan
+                </h3>
 
-  <label for="ke">Konversi ke Sistem Bilangan</label>
-  <select id="ke">
-    <option value="2">Biner (Basis 2)</option>
-    <option value="10">Desimal (Basis 10)</option>
-    <option value="8" selected>Oktal (Basis 8)</option>
-    <option value="16">Hexadesimal (Basis 16)</option>
-  </select>
+                <!-- Input Angka -->
+                <label class="form-label">Masukkan Angka</label>
+                <input type="text" id="angka"
+                       class="form-control mb-3"
+                       placeholder="Masukkan angka...">
 
-  <div id="boxHasil">
-    <p>Hasil Konversi</p>
-    <div id="hasil">-</div>
-  </div>
+                <!-- Jenis Bilangan Input -->
+                <label class="form-label">Dari Sistem Bilangan</label>
+                <select id="dari" class="form-select mb-3">
+                    <option value="2">Biner (Basis 2)</option>
+                    <option value="8">Oktal (Basis 8)</option>
+                    <option value="10" selected>Desimal (Basis 10)</option>
+                    <option value="16">Heksadesimal (Basis 16)</option>
+                </select>
 
-<script>
-function konversi() {
-  const input = document.getElementById("angka").value.trim().toLowerCase();
-  const dari = parseInt(document.getElementById("dari").value);
-  const ke = parseInt(document.getElementById("ke").value);
-  const error = document.getElementById("error");
-  const hasil = document.getElementById("hasil");
-  error.textContent = "";
+                <!-- Jenis Bilangan Hasil -->
+                <label class="form-label">Ke Sistem Bilangan</label>
+                <select id="ke" class="form-select mb-4">
+                    <option value="2">Biner (Basis 2)</option>
+                    <option value="8">Oktal (Basis 8)</option>
+                    <option value="10">Desimal (Basis 10)</option>
+                    <option value="16">Heksadesimal (Basis 16)</option>
+                </select>
 
-  const digitValid = "0123456789abcdef".slice(0, dari);
-  if (input === "" || ![...input].every(c => digitValid.includes(c))) {
-    error.textContent = "Input tidak valid untuk basis " + dari + ".";
-    hasil.textContent = "-";
-    return;
-  }
+                <!-- Tombol Konversi -->
+                <button class="btn btn-primary w-100"
+                        onclick="konversikan()">
+                    Konversi
+                </button>
 
-  hasil.textContent = parseInt(input, dari).toString(ke).toUpperCase();
-}
-</script>
+                <!-- Hasil -->
+                <div class="text-center mt-4">
+                    <p class="mb-1">Hasil Konversi:</p>
+                    <h2 id="hasil" class="text-success fw-bold">
+                        -
+                    </h2>
+                    <p id="pesan" class="text-danger small"></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function konversikan() {
+            let angka = document.getElementById("angka").value.trim();
+            let dari = parseInt(document.getElementById("dari").value);
+            let ke = parseInt(document.getElementById("ke").value);
+
+            let hasil = document.getElementById("hasil");
+            let pesan = document.getElementById("pesan");
+
+            pesan.textContent = "";
+
+            if (angka === "") {
+                hasil.textContent = "-";
+                pesan.textContent = "Masukkan angka terlebih dahulu!";
+                return;
+            }
+
+            let desimal = parseInt(angka, dari);
+
+            if (isNaN(desimal) ||
+                !Number.isSafeInteger(desimal) ||
+                desimal.toString(dari).toLowerCase() !== angka.toLowerCase()) {
+                hasil.textContent = "-";
+                pesan.textContent = "Angka tidak sesuai dengan sistem bilangan!";
+                return;
+            }
+
+            hasil.textContent = desimal.toString(ke).toUpperCase();
+        }
+    </script>
+
 </body>
 </html>
