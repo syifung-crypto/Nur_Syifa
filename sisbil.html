@@ -1,1 +1,173 @@
-Kalkulator sistem bilangan
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Sistem Bilangan</title>
+
+    <!-- Bootstrap 5 CDN -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+</head>
+<body class="bg-light">
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+
+                <div class="card shadow border-0">
+                    <div class="card-header bg-primary text-white text-center py-3">
+                        <h3 class="mb-0">Kalkulator Sistem Bilangan</h3>
+                    </div>
+
+                    <div class="card-body p-4">
+
+                        <!-- Input Bilangan -->
+                        <div class="mb-3">
+                            <label for="bilangan" class="form-label">
+                                Masukkan Bilangan
+                            </label>
+                            <input
+                                type="text"
+                                class="form-control form-control-lg"
+                                id="bilangan"
+                                placeholder="Contoh: 1010"
+                            >
+                        </div>
+
+                        <!-- Sistem Bilangan Asal -->
+                        <div class="mb-3">
+                            <label for="asal" class="form-label">
+                                Sistem Bilangan Asal
+                            </label>
+                            <select id="asal" class="form-select">
+                                <option value="2">Biner (Basis 2)</option>
+                                <option value="8">Oktal (Basis 8)</option>
+                                <option value="10" selected>Desimal (Basis 10)</option>
+                                <option value="16">Heksadesimal (Basis 16)</option>
+                            </select>
+                        </div>
+
+                        <!-- Sistem Bilangan Tujuan -->
+                        <div class="mb-4">
+                            <label for="tujuan" class="form-label">
+                                Konversi Ke
+                            </label>
+                            <select id="tujuan" class="form-select">
+                                <option value="2">Biner (Basis 2)</option>
+                                <option value="8">Oktal (Basis 8)</option>
+                                <option value="10">Desimal (Basis 10)</option>
+                                <option value="16" selected>
+                                    Heksadesimal (Basis 16)
+                                </option>
+                            </select>
+                        </div>
+
+                        <!-- Tombol Konversi -->
+                        <button
+                            type="button"
+                            class="btn btn-primary btn-lg w-100"
+                            onclick="konversikan()"
+                        >
+                            Konversi
+                        </button>
+
+                        <!-- Hasil Konversi -->
+                        <div class="mt-4 p-3 bg-light border rounded text-center">
+                            <div class="text-muted mb-2">Hasil Konversi</div>
+                            <div
+                                id="hasil"
+                                class="fs-2 fw-bold text-primary text-break"
+                            >
+                                -
+                            </div>
+                            <small id="keterangan" class="text-muted"></small>
+                        </div>
+
+                    </div>
+                </div>
+
+                <p class="text-center text-muted mt-3">
+                    Kalkulator Konversi Sistem Bilangan
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function konversikan() {
+            const input = document.getElementById("bilangan")
+                .value.trim();
+
+            const asal = parseInt(
+                document.getElementById("asal").value
+            );
+
+            const tujuan = parseInt(
+                document.getElementById("tujuan").value
+            );
+
+            const hasilElement = document.getElementById("hasil");
+            const keteranganElement =
+                document.getElementById("keterangan");
+
+            // Validasi input kosong
+            if (input === "") {
+                hasilElement.textContent = "Input kosong!";
+                hasilElement.className =
+                    "fs-4 fw-bold text-danger text-break";
+                keteranganElement.textContent =
+                    "Silakan masukkan bilangan.";
+                return;
+            }
+
+            // Validasi karakter berdasarkan sistem bilangan asal
+            const pola = {
+                2: /^[01]+$/,
+                8: /^[0-7]+$/,
+                10: /^[0-9]+$/,
+                16: /^[0-9a-fA-F]+$/
+            };
+
+            if (!pola[asal].test(input)) {
+                hasilElement.textContent = "Input tidak valid!";
+                hasilElement.className =
+                    "fs-4 fw-bold text-danger text-break";
+                keteranganElement.textContent =
+                    "Bilangan tidak sesuai dengan basis " + asal + ".";
+                return;
+            }
+
+            // Konversi ke nilai desimal
+            const nilaiDesimal = parseInt(input, asal);
+
+            // Validasi batas bilangan aman JavaScript
+            if (!Number.isSafeInteger(nilaiDesimal)) {
+                hasilElement.textContent = "Bilangan terlalu besar!";
+                hasilElement.className =
+                    "fs-4 fw-bold text-danger text-break";
+                keteranganElement.textContent =
+                    "Gunakan bilangan dalam rentang integer aman.";
+                return;
+            }
+
+            // Konversi dari desimal ke sistem bilangan tujuan
+            const hasil = nilaiDesimal
+                .toString(tujuan)
+                .toUpperCase();
+
+            // Tampilkan hasil
+            hasilElement.textContent = hasil;
+            hasilElement.className =
+                "fs-2 fw-bold text-primary text-break";
+
+            keteranganElement.textContent =
+                "Basis " + asal + " → Basis " + tujuan;
+        }
+    </script>
+
+</body>
+</html>
