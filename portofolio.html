@@ -3,93 +3,1096 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Sistem Bilangan</title>
+    <title>My Personal Website</title>
 
-    <!-- Bootstrap CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+        :root {
+            --pink: #f28fb8;
+            --light: #fce4ed;
+            --black: #242024;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #fffafd;
+            color: #242024;
+        }
+
+        /* NAVBAR */
+        header {
+            padding: 22px 9%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #f3d8e3;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 3px 18px #e9a8c522;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 27px;
+            color: #e77eaa;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #393139;
+            margin-left: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: .3s ease;
+        }
+
+        nav a:hover {
+            color: #e77eaa;
+        }
+
+        section {
+            padding: 85px 10%;
+            scroll-margin-top: 80px;
+        }
+
+        /* HOME */
+        #home {
+            min-height: 85vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 15% 20%, #f8c2d8 0, transparent 25%),
+                radial-gradient(circle at 85% 80%, #f5b4d0 0, transparent 28%),
+                linear-gradient(135deg, #fff7fa, #fce4ed);
+            padding: 80px 20px;
+        }
+
+        .home-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            animation: fadeUp 0.9s ease both;
+        }
+
+        .sticker {
+            display: inline-block;
+            background: white;
+            color: #bd6289;
+            border: 1px solid #f2b5cf;
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-bottom: 22px;
+            box-shadow: 0 5px 20px #e9a8c533;
+        }
+
+        .home-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(42px, 7vw, 76px);
+            line-height: 1.15;
+            color: #242024;
+            margin-bottom: 18px;
+        }
+
+        .home-content h1::first-line {
+            color: #e77eaa;
+        }
+
+        .home-content p {
+            color: #6d5b65;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .home-button {
+            display: inline-block;
+            background: #f28fb8;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s ease;
+            box-shadow: 0 8px 20px #e99abc55;
+        }
+
+        .home-button:hover {
+            background: #242024;
+            transform: translateY(-4px);
+        }
+
+        .decoration {
+            position: absolute;
+            color: #e77eaa;
+            pointer-events: none;
+        }
+
+        .star {
+            top: 20%;
+            left: 15%;
+            font-size: 55px;
+            animation: starMove 3s ease-in-out infinite alternate;
+        }
+
+        .heart {
+            bottom: 20%;
+            right: 15%;
+            font-size: 65px;
+            animation: heartMove 2.5s ease-in-out infinite;
+        }
+
+        .sparkle {
+            top: 25%;
+            right: 20%;
+            font-size: 35px;
+            animation: sparkleMove 2s ease-in-out infinite alternate;
+        }
+
+        /* FLOATING BUBBLES */
+        #home {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floating-bubbles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-bubbles span {
+            position: absolute;
+            bottom: -80px;
+            width: 25px;
+            height: 25px;
+            border: 2px solid #f28fb8;
+            border-radius: 50%;
+            background: #ffffff55;
+            animation: bubbleFloat 10s linear infinite;
+        }
+
+        .floating-bubbles span:nth-child(1) {
+            left: 10%;
+            animation-duration: 9s;
+        }
+
+        .floating-bubbles span:nth-child(2) {
+            left: 25%;
+            width: 40px;
+            height: 40px;
+            animation-duration: 12s;
+            animation-delay: 2s;
+        }
+
+        .floating-bubbles span:nth-child(3) {
+            left: 50%;
+            animation-duration: 8s;
+            animation-delay: 1s;
+        }
+
+        .floating-bubbles span:nth-child(4) {
+            left: 70%;
+            width: 35px;
+            height: 35px;
+            animation-duration: 11s;
+            animation-delay: 3s;
+        }
+
+        .floating-bubbles span:nth-child(5) {
+            left: 85%;
+            animation-duration: 10s;
+            animation-delay: 1.5s;
+        }
+
+        .floating-bubbles span:nth-child(6) {
+            left: 40%;
+            width: 18px;
+            height: 18px;
+            animation-duration: 13s;
+            animation-delay: 4s;
+        }
+
+        @keyframes bubbleFloat {
+            0% {
+                transform: translateY(0) scale(0.7);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.7;
+            }
+            85% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        @keyframes starMove {
+            from { transform: rotate(-15deg) translateY(0); }
+            to { transform: rotate(15deg) translateY(-15px); }
+        }
+
+        @keyframes heartMove {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.12); }
+        }
+
+        @keyframes sparkleMove {
+            from { transform: scale(0.8) rotate(0deg); opacity: 0.5; }
+            to { transform: scale(1.2) rotate(25deg); opacity: 1; }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ABOUT ME */
+        #biodata {
+            background: #fffafd;
+            padding: 90px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .about-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .about-heading span {
+            color: #d66f9b;
+            letter-spacing: 3px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .about-heading h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            color: #242024;
+            margin: 12px 0;
+        }
+
+        .about-heading p {
+            color: #81727a;
+        }
+
+        .profile-card {
+            max-width: 650px;
+            margin: auto;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #f28fb8, #f9c7dc);
+            box-shadow: 0 15px 35px #e9a8c544;
+            transition: 0.35s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 20px 40px #e9a8c566;
+        }
+
+        .profile-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: linear-gradient(90deg, #ef8fb5, #ffc5dc);
+        }
+
+        .profile-decoration {
+            position: absolute;
+            right: 25px;
+            top: 25px;
+            color: #ed8db5;
+            font-size: 35px;
+        }
+
+        .profile-label {
+            display: inline-block;
+            background: white;
+            color: #bd6289;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            letter-spacing: 2px;
+        }
+
+        .profile-card h3 {
+            color: #242024;
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            margin: 25px 0;
+        }
+
+        .profile-info {
+            background: #ffffffd9;
+            padding: 20px;
+            border-radius: 17px;
+        }
+
+        .profile-info p {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f4d8e4;
+            color: #393139;
+            font-size: 14px;
+        }
+
+        .profile-info p:last-child {
+            border-bottom: none;
+        }
+
+        .profile-info span {
+            color: #bd6289;
+            font-weight: bold;
+        }
+
+        .profile-footer {
+            text-align: right;
+            color: #242024;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+
+        /* LEARNING SECTION */
+        #belajar {
+            background: linear-gradient(180deg, #fffafd, #fce4ed);
+            padding: 90px 25px;
+            text-align: center;
+        }
+
+        .learning-heading {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .learning-heading span {
+            color: #d66f9b;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .learning-heading h2 {
+            color: #242024;
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            margin: 12px 0;
+        }
+
+        .learning-heading p {
+            color: #81727a;
+            line-height: 1.7;
+        }
+
+        .learning-container {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 25px;
+        }
+
+        .learning-card {
+            background: white;
+            border: 1px solid #f5d5e2;
+            border-radius: 22px;
+            padding: 28px;
+            margin-top: 0;
+            box-shadow: 0 8px 25px #e9a8c522;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            text-align: left;
+        }
+
+        .learning-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 30px #e9a8c544;
+        }
+
+        .card-number {
+            display: inline-block;
+            background: #fce4ed;
+            color: #bd6289;
+            border-radius: 20px;
+            padding: 8px 13px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .learning-card h3 {
+            color: #242024;
+            font-family: 'Playfair Display', serif;
+            font-size: 23px;
+            margin: 18px 0 10px;
+        }
+
+        .learning-card > p {
+            color: #81727a;
+            font-size: 14px;
+            line-height: 1.7;
+            min-height: 45px;
+        }
+
+        .learning-card + .learning-card {
+            margin-top: 0;
+        }
+
+        /* KALKULATOR */
+        .calculator-box {
+            background: #fff7fa;
+            border: 1px solid #f5d5e2;
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .calculator-box label {
+            display: block;
+            color: #493b43;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        .calculator-box input,
+        .calculator-box select {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 13px;
+            margin-top: 7px;
+            border: 1px solid #edc5d7;
+            border-radius: 10px;
+            background: white;
+            font-family: inherit;
+            font-size: 14px;
+            color: #242024;
+            outline: none;
+            transition: 0.3s ease;
+        }
+
+        .calculator-box input:focus,
+        .calculator-box select:focus {
+            border-color: #e77eaa;
+            box-shadow: 0 0 0 3px #f28fb822;
+        }
+
+        .calculator-box button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 13px;
+            border: none;
+            border-radius: 12px;
+            background: #f28fb8;
+            color: white;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .calculator-box button:hover {
+            background: #242024;
+            transform: translateY(-2px);
+        }
+
+        .result-box {
+            background: white;
+            border: 1px dashed #e9a8c5;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 18px;
+            color: #493b43;
+            font-size: 13px;
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+        }
+
+        .result-box strong {
+            color: #bd6289;
+        }
+
+        /* FOOTER */
+        .site-footer {
+            background: #242024;
+            color: white;
+            padding: 65px 20px 25px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .footer-star {
+            color: #f28fb8;
+            font-size: 35px;
+        }
+
+        .footer-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            margin: 15px 0;
+            color: #f7b4d0;
+        }
+
+        .footer-content > p {
+            color: #e5d6de;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .back-top {
+            display: inline-block;
+            margin: 25px 0;
+            padding: 12px 25px;
+            border-radius: 30px;
+            background: #f28fb8;
+            color: #242024;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s ease;
+        }
+
+        .back-top:hover {
+            background: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-line {
+            height: 1px;
+            background: #59434f;
+            margin: 20px 0;
+        }
+
+        .footer-content .copyright {
+            color: #cbbac3;
+            font-size: 12px;
+        }
+
+        /* RESPONSIVE */
+        @media screen and (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px;
+            }
+
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 8px;
+                font-size: 12px;
+            }
+
+            #home {
+                padding: 80px 20px;
+                min-height: 65vh;
+            }
+
+            #home h1 {
+                font-size: 38px;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .learning-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .learning-card {
+                width: 100%;
+                padding: 20px;
+            }
+
+            .learning-heading h2,
+            .about-heading h2 {
+                font-size: 34px;
+            }
+
+            .profile-card {
+                box-sizing: border-box;
+                width: 100%;
+                padding: 25px;
+            }
+
+            .profile-info p {
+                flex-wrap: wrap;
+            }
+
+            .calculator-box input,
+            .calculator-box select {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .footer-content h2 {
+                font-size: 27px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            nav {
+                gap: 10px;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+
+            .home-content h1 {
+                font-size: 40px;
+            }
+
+            .learning-card h3 {
+                font-size: 21px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .profile-card {
+                padding: 28px 18px;
+            }
+
+            .profile-info span {
+                display: block;
+                width: auto;
+                margin-bottom: 5px;
+            }
+
+            .about-heading h2 {
+                font-size: 34px;
+            }
+
+            .learning-card {
+                padding: 22px;
+            }
+
+            .learning-heading h2 {
+                font-size: 34px;
+            }
+
+            .calculator-box {
+                padding: 16px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .floating-bubbles span,
+            .star,
+            .heart,
+            .sparkle {
+                animation: none !important;
+            }
+        }
+    </style>
 </head>
-<body class="bg-light">
 
-    <div class="container mt-5">
-        <div class="card shadow mx-auto" style="max-width: 500px;">
-            <div class="card-body p-4">
+<body>
 
-                <h3 class="text-center mb-4">
-                    Kalkulator Sistem Bilangan
-                </h3>
+    <header>
+        <h2>MySpace.</h2>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#biodata">Biodata</a>
+            <a href="#belajar">Bukti Belajar</a>
+        </nav>
+    </header>
 
-                <!-- Input Angka -->
-                <label class="form-label">Masukkan Angka</label>
-                <input type="text" id="angka"
-                       class="form-control mb-3"
-                       placeholder="Masukkan angka...">
-
-                <!-- Jenis Bilangan Input -->
-                <label class="form-label">Dari Sistem Bilangan</label>
-                <select id="dari" class="form-select mb-3">
-                    <option value="2">Biner (Basis 2)</option>
-                    <option value="8">Oktal (Basis 8)</option>
-                    <option value="10" selected>Desimal (Basis 10)</option>
-                    <option value="16">Heksadesimal (Basis 16)</option>
-                </select>
-
-                <!-- Jenis Bilangan Hasil -->
-                <label class="form-label">Ke Sistem Bilangan</label>
-                <select id="ke" class="form-select mb-4">
-                    <option value="2">Biner (Basis 2)</option>
-                    <option value="8">Oktal (Basis 8)</option>
-                    <option value="10">Desimal (Basis 10)</option>
-                    <option value="16">Heksadesimal (Basis 16)</option>
-                </select>
-
-                <!-- Tombol Konversi -->
-                <button class="btn btn-primary w-100"
-                        onclick="konversikan()">
-                    Konversi
-                </button>
-
-                <!-- Hasil -->
-                <div class="text-center mt-4">
-                    <p class="mb-1">Hasil Konversi:</p>
-                    <h2 id="hasil" class="text-success fw-bold">
-                        -
-                    </h2>
-                    <p id="pesan" class="text-danger small"></p>
-                </div>
-
-            </div>
+    <!-- HOME -->
+    <section id="home">
+        <div class="floating-bubbles">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-    </div>
+
+        <div class="home-content">
+            <span class="sticker">✦ HELLO, WELCOME! ✦</span>
+            <h1>Hey There!<br>I'm Syifa</h1>
+            <p>Welcome to my little space on the internet.</p>
+            <a href="#biodata" class="home-button">
+                Get to Know Me ✧
+            </a>
+        </div>
+
+        <div class="decoration star">✦</div>
+        <div class="decoration heart">♡</div>
+        <div class="decoration sparkle">✧</div>
+    </section>
+
+    <!-- BIODATA -->
+    <section id="biodata">
+        <div class="about-heading">
+            <span>GET TO KNOW ME</span>
+            <h2>About Me ♡</h2>
+            <p>A little introduction about myself.</p>
+        </div>
+
+        <div class="profile-card">
+            <div class="profile-decoration">✦</div>
+            <div class="profile-label">MY PROFILE</div>
+            <h3>Hello, I'm Syifa!</h3>
+
+            <div class="profile-info">
+                <p><span>Nama</span> Nur Syifa</p>
+                <p><span>Program Studi</span> Sistem Informasi</p>
+                <p><span>Fakultas</span> Komputer</p>
+                <p><span>Universitas</span> Ma'soem University</p>
+            </div>
+
+            <div class="profile-footer">Nice to meet you!</div>
+        </div>
+    </section>
+
+    <!-- BUKTI BELAJAR -->
+    <section id="belajar">
+        <div class="learning-heading">
+            <span>MY LEARNING JOURNEY</span>
+            <h2>Bukti Belajar</h2>
+            <p>Perjalanan belajar Matematika Informatika bersama Pa Iin TA 20261</p>
+        </div>
+
+        <div class="learning-container">
+
+            <!-- FITUR 1 -->
+            <div class="learning-card">
+                <div class="card-number">01 / MODULO</div>
+                <h3>Kalkulator Modulo</h3>
+                <p>Hitung sisa hasil pembagian dari dua bilangan.</p>
+
+                <div class="calculator-box">
+                    <label>Masukkan angka (a)</label>
+                    <input type="number" id="angka" placeholder="Contoh: 17">
+
+                    <label>Masukkan modulo (m)</label>
+                    <input type="number" id="modulo" placeholder="Contoh: 5">
+
+                    <button onclick="hitungModulo()">Hitung Modulo ↗</button>
+
+                    <div id="hasilModulo" class="result-box">
+                        Hasil perhitungan akan muncul di sini.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FITUR 2 -->
+            <div class="learning-card">
+                <div class="card-number">02 / CONGRUENCE</div>
+                <h3>Congruence Checker</h3>
+                <p>Periksa apakah dua bilangan saling kongruen dalam modulo tertentu.</p>
+
+                <div class="calculator-box">
+                    <label>Masukkan angka a</label>
+                    <input type="number" id="angkaA" placeholder="Contoh: 17">
+
+                    <label>Masukkan angka b</label>
+                    <input type="number" id="angkaB" placeholder="Contoh: 7">
+
+                    <label>Masukkan modulo m</label>
+                    <input type="number" id="angkaM" placeholder="Contoh: 5">
+
+                    <button onclick="cekKongruen()">Periksa Kongruensi ↗</button>
+
+                    <div id="hasilKongruen" class="result-box">
+                        Hasil pemeriksaan akan muncul di sini.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FITUR 3 -->
+            <div class="learning-card">
+                <div class="card-number">03 / NUMBER SYSTEM</div>
+                <h3>Kalkulator Sistem Bilangan</h3>
+                <p>Konversi bilangan ke basis biner, desimal, oktal, dan heksadesimal.</p>
+
+                <div class="calculator-box">
+                    <label>Masukkan angka</label>
+                    <input type="text" id="nilaiBilangan" placeholder="Contoh: 1010">
+
+                    <label>Pilih basis asal</label>
+                    <select id="basisAsal">
+                        <option value="2">Biner (Basis 2)</option>
+                        <option value="10">Desimal (Basis 10)</option>
+                        <option value="8">Oktal (Basis 8)</option>
+                        <option value="16">Heksadesimal (Basis 16)</option>
+                    </select>
+
+                    <button onclick="konversiBilangan()">Konversi ↗</button>
+
+                    <div id="hasilBilangan" class="result-box">
+                        Hasil konversi muncul di sini.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FITUR 4 -->
+            <div class="learning-card">
+                <div class="card-number">04 / COMBINATORICS</div>
+                <h3>Kalkulator Kombinatorika</h3>
+                <p>Hitung permutasi dan kombinasi berdasarkan nilai n dan r.</p>
+
+                <div class="calculator-box">
+                    <label>Masukkan nilai n</label>
+                    <input type="number" id="nilaiN" placeholder="Contoh: 5">
+
+                    <label>Masukkan nilai r</label>
+                    <input type="number" id="nilaiR" placeholder="Contoh: 2">
+
+                    <button onclick="hitungKombinatorika()">Hitung ↗</button>
+
+                    <div id="hasilKombinatorika" class="result-box">
+                        Hasil permutasi dan kombinasi muncul di sini.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <span class="footer-star">✦</span>
+            <h2>Thank You for Visiting! ♡</h2>
+            <p>
+                Terima kasih sudah mengunjungi website kecilku.
+                Ini adalah bagian dari perjalanan belajarku
+                dalam memahami dunia teknologi.
+            </p>
+
+            <a href="#home" class="back-top">Back to Top ↑</a>
+
+            <div class="footer-line"></div>
+
+            <p class="copyright">
+                © 2026 MySpace. Made with ♡ by Syifa
+            </p>
+        </div>
+    </footer>
 
     <script>
-        function konversikan() {
-            let angka = document.getElementById("angka").value.trim();
-            let dari = parseInt(document.getElementById("dari").value);
-            let ke = parseInt(document.getElementById("ke").value);
+        // FITUR 1: KALKULATOR MODULO
+        function hitungModulo() {
+            let a = Number(document.getElementById("angka").value);
+            let m = Number(document.getElementById("modulo").value);
 
-            let hasil = document.getElementById("hasil");
-            let pesan = document.getElementById("pesan");
+            let hasil = document.getElementById("hasilModulo");
 
-            pesan.textContent = "";
-
-            if (angka === "") {
-                hasil.textContent = "-";
-                pesan.textContent = "Masukkan angka terlebih dahulu!";
+            if (
+                document.getElementById("angka").value === "" ||
+                document.getElementById("modulo").value === ""
+            ) {
+                hasil.innerHTML = "Silakan isi kedua angka terlebih dahulu.";
                 return;
             }
 
-            let desimal = parseInt(angka, dari);
-
-            if (isNaN(desimal) ||
-                !Number.isSafeInteger(desimal) ||
-                desimal.toString(dari).toLowerCase() !== angka.toLowerCase()) {
-                hasil.textContent = "-";
-                pesan.textContent = "Angka tidak sesuai dengan sistem bilangan!";
+            if (!Number.isInteger(a) || !Number.isInteger(m)) {
+                hasil.innerHTML = "Masukkan bilangan bulat.";
                 return;
             }
 
-            hasil.textContent = desimal.toString(ke).toUpperCase();
+            if (m <= 0) {
+                hasil.innerHTML = "Nilai modulo harus lebih dari 0.";
+                return;
+            }
+
+            let sisa = ((a % m) + m) % m;
+
+            hasil.innerHTML = `
+                <strong>Hasil: ${a} mod ${m} = ${sisa}</strong>
+                <br>
+                Proses: ${a} = (${Math.floor(a / m)}) × ${m} + ${sisa}
+            `;
+        }
+
+        // FITUR 2: CONGRUENCE CHECKER
+        function cekKongruen() {
+            let a = Number(document.getElementById("angkaA").value);
+            let b = Number(document.getElementById("angkaB").value);
+            let m = Number(document.getElementById("angkaM").value);
+
+            let hasil = document.getElementById("hasilKongruen");
+
+            if (
+                document.getElementById("angkaA").value === "" ||
+                document.getElementById("angkaB").value === "" ||
+                document.getElementById("angkaM").value === ""
+            ) {
+                hasil.innerHTML = "Silakan isi semua angka terlebih dahulu.";
+                return;
+            }
+
+            if (!Number.isInteger(a) || !Number.isInteger(b) || !Number.isInteger(m)) {
+                hasil.innerHTML = "Masukkan bilangan bulat.";
+                return;
+            }
+
+            if (m <= 0) {
+                hasil.innerHTML = "Modulo harus lebih dari 0.";
+                return;
+            }
+
+            let sisaA = ((a % m) + m) % m;
+            let sisaB = ((b % m) + m) % m;
+
+            if (sisaA === sisaB) {
+                hasil.innerHTML = `
+                    <strong>BENAR ✓ — KONGRUEN</strong>
+                    <br>${a} ≡ ${b} (mod ${m})
+                    <br>Sisa ${a} ÷ ${m} = ${sisaA}
+                    <br>Sisa ${b} ÷ ${m} = ${sisaB}
+                `;
+            } else {
+                hasil.innerHTML = `
+                    <strong>SALAH ✗ — TIDAK KONGRUEN</strong>
+                    <br>${a} ≢ ${b} (mod ${m})
+                    <br>Sisa ${a} ÷ ${m} = ${sisaA}
+                    <br>Sisa ${b} ÷ ${m} = ${sisaB}
+                `;
+            }
+        }
+
+        // FITUR 3: KALKULATOR SISTEM BILANGAN
+        function konversiBilangan() {
+            let input = document.getElementById("nilaiBilangan").value.trim();
+            let basis = Number(document.getElementById("basisAsal").value);
+            let hasil = document.getElementById("hasilBilangan");
+
+            if (input === "") {
+                hasil.innerHTML = "Silakan masukkan angka terlebih dahulu.";
+                return;
+            }
+
+            let nilai = parseInt(input, basis);
+
+            if (
+                !Number.isInteger(nilai) ||
+                nilai.toString(basis).toLowerCase() !== input.toLowerCase()
+            ) {
+                hasil.innerHTML = "Angka tidak valid untuk basis yang dipilih.";
+                return;
+            }
+
+            hasil.innerHTML = `
+                <strong>HASIL KONVERSI</strong><br><br>
+                Biner (2): ${nilai.toString(2)}<br>
+                Desimal (10): ${nilai.toString(10)}<br>
+                Oktal (8): ${nilai.toString(8)}<br>
+                Heksadesimal (16): ${nilai.toString(16).toUpperCase()}
+            `;
+        }
+
+        // FITUR 4: KALKULATOR KOMBINATORIKA
+        function faktorial(n) {
+            let hasil = 1;
+
+            for (let i = 1; i <= n; i++) {
+                hasil *= i;
+            }
+
+            return hasil;
+        }
+
+        function hitungKombinatorika() {
+            let inputN = document.getElementById("nilaiN").value;
+            let inputR = document.getElementById("nilaiR").value;
+            let hasil = document.getElementById("hasilKombinatorika");
+
+            if (inputN === "" || inputR === "") {
+                hasil.innerHTML = "Silakan isi nilai n dan r.";
+                return;
+            }
+
+            let n = Number(inputN);
+            let r = Number(inputR);
+
+            if (
+                !Number.isInteger(n) ||
+                !Number.isInteger(r) ||
+                n < 0 ||
+                r < 0 ||
+                r > n ||
+                n > 170
+            ) {
+                hasil.innerHTML = "Masukkan bilangan bulat dengan 0 ≤ r ≤ n dan n maksimal 170.";
+                return;
+            }
+
+            let permutasi = faktorial(n) / faktorial(n - r);
+            let kombinasi = faktorial(n) / (faktorial(r) * faktorial(n - r));
+
+            hasil.innerHTML = `
+                <strong>HASIL PERHITUNGAN</strong><br><br>
+
+                <b>1. Permutasi</b><br>
+                P(${n}, ${r}) = ${n}! / (${n}-${r})!<br>
+                Hasil = ${permutasi}<br><br>
+
+                <b>2. Kombinasi</b><br>
+                C(${n}, ${r}) = ${n}! / (${r}! × (${n}-${r})!)<br>
+                Hasil = ${kombinasi}
+            `;
         }
     </script>
 
